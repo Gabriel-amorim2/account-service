@@ -1,8 +1,9 @@
 package com.bankingPlatform.accounts_service.controller;
 
 
-import com.bankingPlatform.accounts_service.dto.AccountDTO;
-import com.bankingPlatform.accounts_service.entity.Account;
+import com.bankingPlatform.accounts_service.dto.AccountRequest;
+import com.bankingPlatform.accounts_service.dto.AccountResponse;
+
 import com.bankingPlatform.accounts_service.service.AccountServiceImp;
 import jakarta.validation.Valid;
 
@@ -22,8 +23,14 @@ public class AccountController {
     }
 
     @PostMapping("/create-account")
-    public ResponseEntity<Account> addAccount(@Valid @RequestBody AccountDTO accountDTO ){
-        var count =  accountService.createAccount(accountDTO);
+    public ResponseEntity<AccountResponse> addAccount(@Valid @RequestBody AccountRequest accountRequest){
+        var count =  accountService.createAccount(accountRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(count);
+    }
+
+    @GetMapping("/get-account")
+    public ResponseEntity<AccountResponse> getAccount (){
+        var account = accountService.getMyAccounts();
+        return ResponseEntity.status(HttpStatus.OK).body(account);
     }
 }

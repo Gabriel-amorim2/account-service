@@ -1,11 +1,11 @@
 package com.bankingPlatform.accounts_service.mapper;
 
-import com.bankingPlatform.accounts_service.dto.AccountDTO;
+import com.bankingPlatform.accounts_service.dto.AccountRequest;
 import com.bankingPlatform.accounts_service.entity.Account;
 
 public class AccountMapper {
 
-    public static Account mapAccount(AccountDTO dto) {
+    public static Account mapAccount(AccountRequest dto) {
         if (dto == null) return null;
 
         Account account = new Account();
