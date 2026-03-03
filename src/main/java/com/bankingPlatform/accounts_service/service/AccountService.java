@@ -5,6 +5,7 @@ import com.bankingPlatform.accounts_service.dto.AccountResponse;
 import com.bankingPlatform.accounts_service.entity.Account;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface AccountService {
 

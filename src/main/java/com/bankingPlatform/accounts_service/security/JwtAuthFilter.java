@@ -48,8 +48,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
             String userId = decodedToken.getSubject(); // pega o "sub"
             var claim = decodedToken.getClaim("roles").asList(String.class); // pega o "claim"
-            System.out.println(claim);
-            System.out.println(userId);
+
 
             var authorities = claim.stream()
                     .map(SimpleGrantedAuthority::new)

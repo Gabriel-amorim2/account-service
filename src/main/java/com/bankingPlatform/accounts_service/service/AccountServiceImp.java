@@ -4,15 +4,14 @@ import com.bankingPlatform.accounts_service.dto.AccountRequest;
 import com.bankingPlatform.accounts_service.dto.AccountResponse;
 import com.bankingPlatform.accounts_service.entity.Account;
 import com.bankingPlatform.accounts_service.infra.exepition.ExistentAccount;
+import com.bankingPlatform.accounts_service.infra.exepition.NonExistentAccount;
 import com.bankingPlatform.accounts_service.mapper.AccountMapper;
 import com.bankingPlatform.accounts_service.repository.AccountRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 @Service
 public class AccountServiceImp  implements AccountService {
@@ -25,6 +24,10 @@ public class AccountServiceImp  implements AccountService {
 
     @Override
     public AccountResponse createAccount(AccountRequest accountRequest) {
+        if (accountRepository.findByCpf(accountRequest.getCpf()).isPresent()){
+            throw new ExistentAccount("account already exists");
+        }
+
 
         String username = getLoggedUsername(); // agora é String
         Account account = AccountMapper.mapAccount(accountRequest);
@@ -46,7 +49,7 @@ public class AccountServiceImp  implements AccountService {
         String username = getLoggedUsername();
         Optional<Account> response =  accountRepository.findByUsername(username);
         if (!response.isPresent()){
-            throw new ExistentAccount("conta inexistente");
+            throw new NonExistentAccount("conta inexistente");
         }
         var account = response.get();
         return AccountResponse.builder()
@@ -63,7 +66,5 @@ public class AccountServiceImp  implements AccountService {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return auth.getName();
     }
-
-
 
 }
