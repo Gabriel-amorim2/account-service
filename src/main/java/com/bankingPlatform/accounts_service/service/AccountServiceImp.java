@@ -7,6 +7,7 @@ import com.bankingPlatform.accounts_service.infra.exepition.ExistentAccount;
 import com.bankingPlatform.accounts_service.infra.exepition.NonExistentAccount;
 import com.bankingPlatform.accounts_service.mapper.AccountMapper;
 import com.bankingPlatform.accounts_service.repository.AccountRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.util.Optional;
 
 @Service
 public class AccountServiceImp  implements AccountService {
+
 
     private final AccountRepository accountRepository;
 
@@ -41,6 +43,21 @@ public class AccountServiceImp  implements AccountService {
                 .username(account.getUsername()).build();
 
 
+    }
+    @Override
+    @Transactional
+    public AccountResponse deleteAccounts() {
+        String username = getLoggedUsername();
+        var acccount = accountRepository.findByUsername(username).orElseThrow(() -> new NonExistentAccount("conta não existe para deletar"));
+
+        accountRepository.deleteByUsername(username);
+
+        return AccountResponse.builder().mensage("Conta deletada")
+                .username(username)
+                .accountHolderName(acccount.getAccountHolderName())
+                .cpf(acccount.getCpf())
+                .balance(acccount.getBalance())
+                .build();
     }
 
 

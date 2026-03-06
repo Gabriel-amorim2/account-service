@@ -7,5 +7,6 @@ public interface AccountService {
 
     AccountResponse createAccount(AccountRequest accountRequest);
     AccountResponse getMyAccounts();
+    AccountResponse deleteAccounts();
 
 }

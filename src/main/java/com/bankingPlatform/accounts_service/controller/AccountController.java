@@ -27,6 +27,12 @@ public class AccountController {
         var count =  accountService.createAccount(accountRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(count);
     }
+    @DeleteMapping("/delete-account")
+    public ResponseEntity<AccountResponse> deleteByCpf(@RequestBody String cpf){
+        System.out.println(cpf);
+        var delete = accountService.deleteAccounts();
+        return ResponseEntity.status(HttpStatus.OK).body(delete);
+    }
 
     @GetMapping("/get-account")
     public ResponseEntity<AccountResponse> getAccount (){
