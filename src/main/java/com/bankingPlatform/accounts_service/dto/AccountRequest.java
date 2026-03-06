@@ -13,7 +13,7 @@ public class AccountRequest {
 
     @NotBlank
     @Pattern(regexp = "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}"
-            , message = "CPF invalido")
+            , message = "formato do CPF invalido")
     private String cpf;
 }
 

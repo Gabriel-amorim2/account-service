@@ -13,7 +13,7 @@ public class RestHandlerExeption {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> MethodArgumentNotValidException(MethodArgumentNotValidException exception){
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("CPF invalido");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("formato do CPF invalido");
     }
 
     @ExceptionHandler(NonExistentAccount.class)

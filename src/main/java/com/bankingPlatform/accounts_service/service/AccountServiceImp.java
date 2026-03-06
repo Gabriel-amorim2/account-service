@@ -25,7 +25,7 @@ public class AccountServiceImp  implements AccountService {
     @Override
     public AccountResponse createAccount(AccountRequest accountRequest) {
         if (accountRepository.findByCpf(accountRequest.getCpf()).isPresent()){
-            throw new ExistentAccount("account already exists");
+            throw new ExistentAccount("the account with this CPF already exists");
         }
 
 
