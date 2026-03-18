@@ -1,4 +1,4 @@
-package com.bankingPlatform.accounts_service;
+package com.bankingPlatform.core;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

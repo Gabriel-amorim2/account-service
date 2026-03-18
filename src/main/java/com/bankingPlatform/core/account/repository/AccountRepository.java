@@ -1,6 +1,6 @@
-package com.bankingPlatform.accounts_service.repository;
+package com.bankingPlatform.core.account.repository;
 
-import com.bankingPlatform.accounts_service.entity.Account;
+import com.bankingPlatform.core.account.entity.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

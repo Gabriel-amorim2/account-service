@@ -1,12 +1,12 @@
-package com.bankingPlatform.accounts_service.service;
+package com.bankingPlatform.core.account.service;
 
-import com.bankingPlatform.accounts_service.dto.AccountRequest;
-import com.bankingPlatform.accounts_service.dto.AccountResponse;
-import com.bankingPlatform.accounts_service.entity.Account;
-import com.bankingPlatform.accounts_service.infra.exepition.ExistentAccount;
-import com.bankingPlatform.accounts_service.infra.exepition.NonExistentAccount;
-import com.bankingPlatform.accounts_service.mapper.AccountMapper;
-import com.bankingPlatform.accounts_service.repository.AccountRepository;
+import com.bankingPlatform.core.account.dto.AccountRequest;
+import com.bankingPlatform.core.account.dto.AccountResponse;
+import com.bankingPlatform.core.account.entity.Account;
+import com.bankingPlatform.core.account.infra.exepition.ExistentAccount;
+import com.bankingPlatform.core.account.infra.exepition.NonExistentAccount;
+import com.bankingPlatform.core.account.mapper.AccountMapper;
+import com.bankingPlatform.core.account.repository.AccountRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

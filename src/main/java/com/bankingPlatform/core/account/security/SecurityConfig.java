@@ -1,4 +1,4 @@
-package com.bankingPlatform.accounts_service.security;
+package com.bankingPlatform.core.account.security;
 
 
 import org.springframework.context.annotation.Bean;

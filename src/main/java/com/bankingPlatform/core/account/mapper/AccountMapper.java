@@ -1,7 +1,7 @@
-package com.bankingPlatform.accounts_service.mapper;
+package com.bankingPlatform.core.account.mapper;
 
-import com.bankingPlatform.accounts_service.dto.AccountRequest;
-import com.bankingPlatform.accounts_service.entity.Account;
+import com.bankingPlatform.core.account.dto.AccountRequest;
+import com.bankingPlatform.core.account.entity.Account;
 
 public class AccountMapper {
 

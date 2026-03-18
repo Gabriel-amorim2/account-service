@@ -1,4 +1,4 @@
-package com.bankingPlatform.accounts_service.security;
+package com.bankingPlatform.core.account.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;

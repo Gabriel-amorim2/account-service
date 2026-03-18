@@ -1,10 +1,10 @@
-package com.bankingPlatform.accounts_service.controller;
+package com.bankingPlatform.core.account.controller;
 
 
-import com.bankingPlatform.accounts_service.dto.AccountRequest;
-import com.bankingPlatform.accounts_service.dto.AccountResponse;
+import com.bankingPlatform.core.account.dto.AccountRequest;
+import com.bankingPlatform.core.account.dto.AccountResponse;
 
-import com.bankingPlatform.accounts_service.service.AccountServiceImp;
+import com.bankingPlatform.core.account.service.AccountServiceImp;
 import jakarta.validation.Valid;
 
 import org.springframework.http.HttpStatus;

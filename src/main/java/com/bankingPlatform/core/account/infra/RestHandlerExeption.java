@@ -1,7 +1,7 @@
-package com.bankingPlatform.accounts_service.infra;
+package com.bankingPlatform.core.account.infra;
 
-import com.bankingPlatform.accounts_service.infra.exepition.ExistentAccount;
-import com.bankingPlatform.accounts_service.infra.exepition.NonExistentAccount;
+import com.bankingPlatform.core.account.infra.exepition.ExistentAccount;
+import com.bankingPlatform.core.account.infra.exepition.NonExistentAccount;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

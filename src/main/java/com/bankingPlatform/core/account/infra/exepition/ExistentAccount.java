@@ -1,4 +1,4 @@
-package com.bankingPlatform.accounts_service.infra.exepition;
+package com.bankingPlatform.core.account.infra.exepition;
 
 public class ExistentAccount extends RuntimeException {
     ExistentAccount(){

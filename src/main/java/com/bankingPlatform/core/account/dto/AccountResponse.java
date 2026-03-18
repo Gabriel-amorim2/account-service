@@ -1,6 +1,5 @@
-package com.bankingPlatform.accounts_service.dto;
+package com.bankingPlatform.core.account.dto;
 
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
