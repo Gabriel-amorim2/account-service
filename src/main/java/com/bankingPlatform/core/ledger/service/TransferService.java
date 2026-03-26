@@ -5,6 +5,7 @@ import com.bankingPlatform.core.account.repository.AccountRepository;
 import com.bankingPlatform.core.ledger.model.*;
 import com.bankingPlatform.core.ledger.repository.RepositoryLedger;
 import com.bankingPlatform.core.ledger.repository.TransactionRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -27,13 +28,48 @@ public class TransferService {
     private RepositoryLedger lRepository;
 
 
+    @Transactional
+    public void transfer(UUID from, UUID to, String type, BigDecimal amount, String idepotecyKey){
 
-    public void post(Transaction transaction, List<LedgerEntry> entries){
+
+        List<UUID> ids = Stream.of(from, to)
+                .sorted()
+                .toList();
+
+        List<Account> accounts = aRepository.findAllByIdForUpdate(ids);
+
+        Map<UUID, Account> accountMap = accounts.stream()
+                .collect(Collectors.toMap(Account::getId, acc -> acc));
+
+        Account origin = accountMap.get(from);
+        Account destination = accountMap.get(to);
+
+        if (origin == null||destination == null){
+        throw new RuntimeException("account not found");
+        }
+
+        if (origin.getBalance().compareTo(amount)<0){
+            throw new RuntimeException("insufficient balance");
+        }
+
+        Transaction transaction = new Transaction();
+        transaction.setTransactionID(UUID.randomUUID());
+        transaction.setType(TransactionType.valueOf(type));
+        transaction.setIdepotencykey(idepotecyKey);
+        transaction.setCreatedAt(LocalDateTime.now());
+        transaction.setStatus(TransactionStatus.PENDING);
+
+        LedgerEntry debit =buildEntry(transaction.getTransactionID(),from,EntryType.DEBIT, amount);
+        LedgerEntry credit= buildEntry(transaction.getTransactionID(),to,EntryType.CREDIT, amount);
+
+        post(transaction,List.of(debit,credit));
+    }
+
+    private void post(Transaction transaction, List<LedgerEntry> entries){
         try {
             tRepository.save(transaction);
         } catch (DataIntegrityViolationException e) {
-
-            return; // já processado
+            return;
         }
 
         if (entries == null || entries.isEmpty()) {
@@ -71,37 +107,7 @@ public class TransferService {
 
         tRepository.save(transaction);
     }
-
-
-
-
-    public void transfer(UUID from, UUID to, String type, BigDecimal amount, String idepotecyKey){
-
-        List<UUID> ids = Stream.of(from, to)
-                .sorted()
-                .toList();
-
-
-        List<Account> accounts = aRepository.findAllByIdForUpdate(ids);
-
-        Map<UUID, Account> accountMap = accounts.stream()
-                .collect(Collectors.toMap(Account::getId, acc -> acc));
-
-        Account source = accountMap.get(from);
-        Account destination = accountMap.get(to);
-
-        Transaction transaction = new Transaction();
-        transaction.setTransactionID(UUID.randomUUID());
-        transaction.setType(TransactionType.valueOf(type));
-        transaction.setIdepotencykey(idepotecyKey);
-        transaction.setCreatedAt(LocalDateTime.now());
-        transaction.setStatus(TransactionStatus.PENDING);
-
-        LedgerEntry debit =buildEntry(transaction.getTransactionID(),from,EntryType.DEBIT, amount);
-        LedgerEntry credit= buildEntry(transaction.getTransactionID(),to,EntryType.CREDIT, amount);
-
-        post(transaction,List.of(debit,credit));
-    }
+    
 
 
     private LedgerEntry buildEntry(UUID txId, UUID accountId, EntryType type, BigDecimal amount) {

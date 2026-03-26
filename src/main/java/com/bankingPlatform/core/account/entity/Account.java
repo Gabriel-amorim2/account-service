@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
@@ -21,6 +22,6 @@ public class Account {
     @Column(name = "account_holder_name")
     private String accountHolderName;
     private String cpf;
-    private double balance;
+    private BigDecimal balance;
     private String username;
 }
